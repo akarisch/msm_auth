@@ -2,6 +2,50 @@
   <h3>Movie #<%= @movie.id %></h3>
 </div>
 
+<!-- start copied from New -->
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_bookmark" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" name="user_id" value="<%= @bookmark.user_id %>">
+
+      <div class="form-group">
+        <label for="user_id" class="control-label">
+          User
+        </label>
+
+        <input type="text" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @bookmark.user_id %>">
+      </div> -->
+
+      <!-- Label and input for movie_id -->
+      <div class="form-group">
+        <label for="movie_id" class="control-label">
+          Movie
+        </label>
+
+        <input type="text" id="movie_id" name="movie_id" placeholder="Movie" class="form-control" value="<%= @movie.id %>">
+      </div>
+
+      <%= select_tag(:movie_id, options_from_collection_for_select(Movie.all, :id, :title, @bookmark.movie_id), :class=> "form-control") %>
+    </div>
+
+    <button class="btn btn-success">
+      Create Bookmark
+    </button>
+    or
+    <a href="/bookmarks">Cancel</a>
+  </form>
+</div>
+</div>
+
+<!-- end copied from New -->
+
+
+
+
 <div class="row">
   <div class="col-md-12">
     <dl class="dl-horizontal">
@@ -31,12 +75,12 @@
       <dd>
         <ul class="list-group">
           <% @movie.characters.each do |character| %>
-            <li class="list-group-item">
-              <a href="/actors/<%= character.actor_id %>">
-                <%= character.actor.name %>
-              </a>
-              (<%= character.name %>)
-            </li>
+          <li class="list-group-item">
+            <a href="/actors/<%= character.actor_id %>">
+              <%= character.actor.name %>
+            </a>
+            (<%= character.name %>)
+          </li>
           <% end %>
           <li class="list-group-item list-group-item-success">
             Add a new character
